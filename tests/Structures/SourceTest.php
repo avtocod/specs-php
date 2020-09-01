@@ -2,7 +2,7 @@
 
 namespace Avtocod\Specifications\SDK\Tests\Structures;
 
-use Avtocod\Specifications\Structures\Source;
+use Avtocod\Specifications\SDK\Structures\Source;
 
 /**
  * @covers \Avtocod\Specifications\SDK\Structures\Source<extended>

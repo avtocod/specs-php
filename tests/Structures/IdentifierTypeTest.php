@@ -2,7 +2,7 @@
 
 namespace Avtocod\Specifications\SDK\Tests\Structures;
 
-use Avtocod\Specifications\Structures\IdentifierType;
+use Avtocod\Specifications\SDK\Structures\IdentifierType;
 
 /**
  * @covers \Avtocod\Specifications\SDK\Structures\IdentifierType<extended>

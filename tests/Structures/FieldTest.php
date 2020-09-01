@@ -2,7 +2,7 @@
 
 namespace Avtocod\Specifications\SDK\Tests\Structures;
 
-use Avtocod\Specifications\Structures\Field;
+use Avtocod\Specifications\SDK\Structures\Field;
 
 /**
  * @covers \Avtocod\Specifications\SDK\Structures\Field<extended>

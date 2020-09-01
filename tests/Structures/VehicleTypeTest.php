@@ -2,7 +2,7 @@
 
 namespace Avtocod\Specifications\SDK\Tests\Structures;
 
-use Avtocod\Specifications\Structures\VehicleType;
+use Avtocod\Specifications\SDK\Structures\VehicleType;
 
 /**
  * @covers \Avtocod\Specifications\SDK\Structures\VehicleType<extended>

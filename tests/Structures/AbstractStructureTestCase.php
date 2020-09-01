@@ -6,7 +6,7 @@ namespace Avtocod\Specifications\SDK\Tests\Structures;
 
 use LogicException;
 use Avtocod\Specifications\SDK\Tests\AbstractTestCase;
-use Avtocod\Specifications\Structures\AbstractStructure;
+use Avtocod\Specifications\SDK\Structures\AbstractStructure;
 
 /**
  * @coversNothing
