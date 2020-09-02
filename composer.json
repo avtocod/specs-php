@@ -50,7 +50,6 @@
             "@phpunit-cover"
         ]
     },
-    "prefer-stable": true,
     "support": {
         "issues": "https://github.com/avtocod/specs-php/issues",
         "source": "https://github.com/avtocod/specs-php"
