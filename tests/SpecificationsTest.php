@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Tests;
+namespace Avtocod\Specifications\Tests;
 
 use Exception;
 use ReflectionClass;
@@ -15,17 +15,16 @@ use PackageVersions\Versions;
 use Opis\JsonSchema\Validator;
 use Tarampampam\Wrappers\Json;
 use Illuminate\Support\Collection;
-use Avtocod\Specifications\SDK\Specifications;
-use Avtocod\Specifications\SDK\Structures\Field;
-use Avtocod\Specifications\SDK\Structures\Source;
-use Avtocod\Specifications\SDK\Structures\VehicleMark;
-use Avtocod\Specifications\SDK\Structures\VehicleType;
-use Avtocod\Specifications\SDK\Structures\VehicleModel;
-use Avtocod\Specifications\SDK\Structures\IdentifierType;
-use Avtocod\Specifications\Specifications as VendorSpecs;
+use Avtocod\Specifications\Specifications;
+use Avtocod\Specifications\Structures\Field;
+use Avtocod\Specifications\Structures\Source;
+use Avtocod\Specifications\Structures\VehicleMark;
+use Avtocod\Specifications\Structures\VehicleType;
+use Avtocod\Specifications\Structures\VehicleModel;
+use Avtocod\Specifications\Structures\IdentifierType;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Specifications<extended>
+ * @covers \Avtocod\Specifications\Specifications<extended>
  */
 class SpecificationsTest extends AbstractTestCase
 {
@@ -63,6 +62,16 @@ class SpecificationsTest extends AbstractTestCase
     /**
      * @return void
      */
+    public function testGetRootDirectoryPath(): void
+    {
+        $this->assertEquals($root = $this->getSpecsRootDirPath(), $this->instance::getRootDirectoryPath());
+        $this->assertEquals($root . DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
+        $this->assertEquals($root . DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
+    }
+
+    /**
+     * @return void
+     */
     public function testGetFieldsSpecification(): void
     {
         $fillable_by_should_be_empty_for = [
@@ -86,7 +95,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/fields/default/fields_list.json'
                 ))
             );
@@ -150,7 +159,7 @@ class SpecificationsTest extends AbstractTestCase
     public function testFieldsJsonSchemaValidation(): void
     {
         $fields_raw = Json::decode(\file_get_contents(
-            VendorSpecs::getRootDirectoryPath('/fields/default/fields_list.json')
+            $this->instance::getRootDirectoryPath('/fields/default/fields_list.json')
         ), false);
 
         $this->assertTrue($this->validator->schemaValidation(
@@ -169,7 +178,7 @@ class SpecificationsTest extends AbstractTestCase
                 $this->assertIsArray($result);
 
                 $raw = Json::decode(
-                    \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                    \file_get_contents($this->instance::getRootDirectoryPath(
                         "/reports/default/examples/{$name}.json"
                     ))
                 );
@@ -239,7 +248,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/identifiers/default/types_list.json'
                 ))
             );
@@ -293,7 +302,7 @@ class SpecificationsTest extends AbstractTestCase
     public function testIdentifierTypesUsingSchemaValidator(): void
     {
         foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents(VendorSpecs::getRootDirectoryPath(
+            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
                 '/identifiers/default/types_list.json'
             )), false);
 
@@ -304,6 +313,19 @@ class SpecificationsTest extends AbstractTestCase
                 )->isValid()
             );
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function testVersion(): void
+    {
+        $this->assertSame(
+            $version = Versions::getVersion($this->instance::AVTOCOD_SPECS_PACKAGE_NAME),
+            $this->instance::version(false)
+        );
+
+        $this->assertSame(\mb_substr($version, 0, (int) \mb_strpos($version, '@')), $this->instance::version());
     }
 
     /**
@@ -385,7 +407,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/sources/default/sources_list.json'
                 ))
             );
@@ -426,7 +448,7 @@ class SpecificationsTest extends AbstractTestCase
     public function testSourcesUsingSchemaValidator(): void
     {
         foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents(VendorSpecs::getRootDirectoryPath(
+            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
                 '/sources/default/sources_list.json'
             )), false);
 
@@ -453,7 +475,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/vehicles/default/marks.json'
                 ))
             );
@@ -486,7 +508,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/vehicles/default/models.json'
                 ))
             );
@@ -524,7 +546,7 @@ class SpecificationsTest extends AbstractTestCase
                     $path_file = sprintf('/vehicles/default/models_%s.json', $alias);
                 }
                 $raw       = Json::decode(
-                    \file_get_contents(VendorSpecs::getRootDirectoryPath($path_file))
+                    \file_get_contents($this->instance::getRootDirectoryPath($path_file))
                 );
                 $this->assertCount(count($raw), $result);
                 $model_ids = [];
@@ -617,7 +639,7 @@ class SpecificationsTest extends AbstractTestCase
             }
 
             $raw = Json::decode(
-                \file_get_contents(VendorSpecs::getRootDirectoryPath(
+                \file_get_contents($this->instance::getRootDirectoryPath(
                     '/vehicles/default/types.json'
                 ))
             );
@@ -655,11 +677,11 @@ class SpecificationsTest extends AbstractTestCase
         $method_name = 'getJsonFileContent';
         $method      = $this->getNonPublicMethod(get_class($this->instance), $method_name);
 
-        $path = VendorSpecs::getRootDirectoryPath('/vehicles/default/types.json');
+        $path = $this->instance::getRootDirectoryPath('/vehicles/default/types.json');
         $this->assertIsArray($method->invokeArgs($this->instance, [$path, true]));
         $this->assertIsObject($method->invokeArgs($this->instance, [$path, false]));
 
-        $wrong_path = VendorSpecs::getRootDirectoryPath('/not_exists.json');
+        $wrong_path = $this->instance::getRootDirectoryPath('/not_exists.json');
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("File [{$wrong_path}] was not found");
         $method->invokeArgs($this->instance, [$wrong_path, true]);

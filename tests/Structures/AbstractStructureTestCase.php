@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use LogicException;
-use Avtocod\Specifications\SDK\Tests\AbstractTestCase;
-use Avtocod\Specifications\SDK\Structures\AbstractStructure;
+use Avtocod\Specifications\Tests\AbstractTestCase;
+use Avtocod\Specifications\Structures\AbstractStructure;
 
 /**
  * @coversNothing

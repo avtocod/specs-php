@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Tests;
+namespace Avtocod\Specifications\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Avtocod\Specifications\Specifications;
 
 abstract class AbstractTestCase extends TestCase
 {
@@ -13,8 +14,9 @@ abstract class AbstractTestCase extends TestCase
      *
      * @return string
      */
-    protected function getRootDirPath(): string
+    protected function getSpecsRootDirPath(): string
     {
-        return (string) __DIR__;
+        return \dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR .
+               Specifications::AVTOCOD_SPECS_PACKAGE_NAME;
     }
 }
