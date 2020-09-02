@@ -61,8 +61,7 @@ class Specifications
      */
     public static function getRootDirectoryPath(string $additional_path = null): string
     {
-        $root = \dirname(\Composer\Factory::getComposerFile()) . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR .
-                static::AVTOCOD_SPECS_PACKAGE_NAME;
+        $root = \ComposerLocator::getPath(static::AVTOCOD_SPECS_PACKAGE_NAME);
 
         return $additional_path !== null
             ? $root . \DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')

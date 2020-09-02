@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use PackageVersions\Versions;
 use Tarampampam\Wrappers\Json;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Specifications;
 use Avtocod\Specifications\Structures\Field;
@@ -24,7 +25,7 @@ use Avtocod\Specifications\Structures\IdentifierType;
 /**
  * @covers \Avtocod\Specifications\Specifications<extended>
  */
-class SpecificationsTest extends AbstractTestCase
+class SpecificationsTest extends TestCase
 {
     /**
      * @var Specifications
@@ -56,7 +57,7 @@ class SpecificationsTest extends AbstractTestCase
      */
     public function testGetRootDirectoryPath(): void
     {
-        $this->assertEquals($root = $this->getSpecsRootDirPath(), $this->instance::getRootDirectoryPath());
+        $this->assertEquals($root = \ComposerLocator::getPath($this->instance::AVTOCOD_SPECS_PACKAGE_NAME), $this->instance::getRootDirectoryPath());
         $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
         $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
     }
