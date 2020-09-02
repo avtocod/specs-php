@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications;
 
-use Avtocod\Specifications\Legacy\Path;
 use Exception;
 use InvalidArgumentException;
 use PackageVersions\Versions;
