@@ -61,7 +61,7 @@ class Specifications
      */
     public static function getRootDirectoryPath(string $additional_path = null): string
     {
-        $root = \dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR .
+        $root = \dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR .
                 static::AVTOCOD_SPECS_PACKAGE_NAME;
 
         return $additional_path !== null

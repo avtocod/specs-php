@@ -16,7 +16,7 @@ abstract class AbstractTestCase extends TestCase
      */
     protected function getSpecsRootDirPath(): string
     {
-        return \dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR .
+        return \dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR .
                Specifications::AVTOCOD_SPECS_PACKAGE_NAME;
     }
 }

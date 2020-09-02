@@ -57,8 +57,8 @@ class SpecificationsTest extends AbstractTestCase
     public function testGetRootDirectoryPath(): void
     {
         $this->assertEquals($root = $this->getSpecsRootDirPath(), $this->instance::getRootDirectoryPath());
-        $this->assertEquals($root . DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
-        $this->assertEquals($root . DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
+        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
+        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
     }
 
     /**
