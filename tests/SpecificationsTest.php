@@ -9,10 +9,8 @@ use ReflectionClass;
 use ReflectionMethod;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Opis\JsonSchema\Schema;
 use InvalidArgumentException;
 use PackageVersions\Versions;
-use Opis\JsonSchema\Validator;
 use Tarampampam\Wrappers\Json;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Specifications;
@@ -34,18 +32,12 @@ class SpecificationsTest extends AbstractTestCase
     protected $instance;
 
     /**
-     * @var Validator
-     */
-    protected $validator;
-
-    /**
      * {@inheritdoc}
      */
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->validator = new Validator;
         $this->instance  = new Specifications;
     }
 
@@ -145,26 +137,7 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getFieldsJsonSchema($group_name));
             $this->assertIsArray($this->instance::getFieldsJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/fields/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
         }
-    }
-
-    /**
-     * @return void
-     */
-    public function testFieldsJsonSchemaValidation(): void
-    {
-        $fields_raw = Json::decode(\file_get_contents(
-            $this->instance::getRootDirectoryPath('/fields/default/fields_list.json')
-        ), false);
-
-        $this->assertTrue($this->validator->schemaValidation(
-            $fields_raw, new Schema($this->instance::getFieldsJsonSchema('default'))
-        )->isValid());
     }
 
     /**
@@ -207,30 +180,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getReportJsonSchema($group_name));
             $this->assertIsArray($this->instance::getReportJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/reports/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testReportExamplesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            foreach (['full', 'empty'] as $report_example_type) {
-                $report_example = $this->instance::getReportExample($group_name, $report_example_type, false);
-
-                $this->assertTrue(
-                    $this->validator->schemaValidation(
-                        $report_example,
-                        new Schema($this->instance::getReportJsonSchema($group_name))
-                    )->isValid()
-                );
-            }
         }
     }
 
@@ -288,30 +237,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getIdentifierTypesJsonSchema($group_name));
             $this->assertIsArray($this->instance::getIdentifierTypesJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/identifiers/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testIdentifierTypesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
-                '/identifiers/default/types_list.json'
-            )), false);
-
-            $this->assertTrue(
-                $this->validator->schemaValidation(
-                    $identifier_types,
-                    new Schema($this->instance::getIdentifierTypesJsonSchema($group_name))
-                )->isValid()
-            );
         }
     }
 
@@ -434,30 +359,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getSourcesJsonSchema($group_name));
             $this->assertIsArray($this->instance::getSourcesJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/sources/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testSourcesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
-                '/sources/default/sources_list.json'
-            )), false);
-
-            $this->assertTrue(
-                $this->validator->schemaValidation(
-                    $identifier_types,
-                    new Schema($this->instance::getSourcesJsonSchema($group_name))
-                )->isValid()
-            );
         }
     }
 
