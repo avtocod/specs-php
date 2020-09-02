@@ -65,7 +65,7 @@ class Specifications
                 static::AVTOCOD_SPECS_PACKAGE_NAME;
 
         return $additional_path !== null
-            ? $root . DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')
+            ? $root . \DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')
             : $root;
     }
 
