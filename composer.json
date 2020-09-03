@@ -21,8 +21,7 @@
         "ext-mbstring": "*",
         "illuminate/support": "^5.6 || ~6.0 || ~7.0",
         "ocramius/package-versions": "^1.4",
-        "tarampampam/wrappers-php": "^1.5",
-        "mindplay/composer-locator": "^2.1"
+        "tarampampam/wrappers-php": "^1.5"
     },
     "require-dev": {
         "avtocod/specs": "~3.24",

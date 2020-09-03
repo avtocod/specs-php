@@ -49,7 +49,9 @@ class SpecificationsTest extends TestCase
      */
     public function testConstants(): void
     {
+        $this->assertEquals('avtocod/specs', Specifications::AVTOCOD_SPECS_PACKAGE_NAME);
         $this->assertEquals('default', Specifications::GROUP_NAME_DEFAULT);
+        $this->assertEquals('ID_TYPE_CAR', Specifications::VEHICLE_TYPE_DEFAULT);
     }
 
     /**
@@ -57,7 +59,11 @@ class SpecificationsTest extends TestCase
      */
     public function testGetRootDirectoryPath(): void
     {
-        $this->assertEquals($root = \ComposerLocator::getPath($this->instance::AVTOCOD_SPECS_PACKAGE_NAME), $this->instance::getRootDirectoryPath());
+        $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+        $vendor_dir = \dirname((string) $reflection->getFileName(), 2);
+        $root = $vendor_dir. \DIRECTORY_SEPARATOR . $this->instance::AVTOCOD_SPECS_PACKAGE_NAME ;
+
+        $this->assertEquals($root, $this->instance::getRootDirectoryPath());
         $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
         $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
     }

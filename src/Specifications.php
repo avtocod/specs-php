@@ -61,7 +61,7 @@ class Specifications
      */
     public static function getRootDirectoryPath(string $additional_path = null): string
     {
-        $root = \ComposerLocator::getPath(static::AVTOCOD_SPECS_PACKAGE_NAME);
+        $root = self::getVendorDirectoryPath() . \DIRECTORY_SEPARATOR . self::AVTOCOD_SPECS_PACKAGE_NAME ;
 
         return $additional_path !== null
             ? $root . \DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')
@@ -379,5 +379,16 @@ class Specifications
         $alias = static::getVehicleTypeAliasById($vehicle_type_id, $group_name);
 
         return "/vehicles/{$group_name}/models_{$alias}.json";
+    }
+
+    /**
+     * Returns composer vendor directory patch
+     *
+     * @return string
+     */
+    private static function getVendorDirectoryPath(): string
+    {
+        $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+        return \dirname((string) $reflection->getFileName(), 2);
     }
 }
