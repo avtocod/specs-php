@@ -61,7 +61,7 @@ class SpecificationsTest extends TestCase
     {
         $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
         $vendor_dir = \dirname((string) $reflection->getFileName(), 2);
-        $root = $vendor_dir. \DIRECTORY_SEPARATOR . $this->instance::AVTOCOD_SPECS_PACKAGE_NAME ;
+        $root       = $vendor_dir. \DIRECTORY_SEPARATOR . $this->instance::AVTOCOD_SPECS_PACKAGE_NAME ;
 
         $this->assertEquals($root, $this->instance::getRootDirectoryPath());
         $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
