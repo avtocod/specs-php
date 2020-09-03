@@ -389,6 +389,7 @@ class Specifications
     private static function getVendorDirectoryPath(): string
     {
         $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+
         return \dirname((string) $reflection->getFileName(), 2);
     }
 }
