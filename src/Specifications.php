@@ -61,7 +61,7 @@ class Specifications
      */
     public static function getRootDirectoryPath(string $additional_path = null): string
     {
-        $root = self::getVendorDirectoryPath() . \DIRECTORY_SEPARATOR . self::AVTOCOD_SPECS_PACKAGE_NAME ;
+        $root = self::getVendorDirectoryPath() . \DIRECTORY_SEPARATOR . self::AVTOCOD_SPECS_PACKAGE_NAME;
 
         return $additional_path !== null
             ? $root . \DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')
@@ -382,7 +382,7 @@ class Specifications
     }
 
     /**
-     * Returns composer vendor directory patch
+     * Returns composer vendor directory patch.
      *
      * @return string
      */
