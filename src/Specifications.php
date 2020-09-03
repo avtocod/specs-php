@@ -20,7 +20,7 @@ use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 class Specifications
 {
     /**
-     * Self package name.
+     * Specifivations data package name.
      */
     public const AVTOCOD_SPECS_PACKAGE_NAME = 'avtocod/specs';
 
