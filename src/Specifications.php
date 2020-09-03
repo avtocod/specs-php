@@ -35,7 +35,7 @@ class Specifications
     public const VEHICLE_TYPE_DEFAULT = 'ID_TYPE_CAR';
 
     /**
-     * Get current package version.
+     * Get specifications data package version.
      *
      * @param bool $without_hash
      *
