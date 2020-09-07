@@ -24,7 +24,7 @@
         "tarampampam/wrappers-php": "^1.5"
     },
     "require-dev": {
-        "avtocod/specs": "~3.24",
+        "avtocod/specs": "~3.46",
         "phpunit/phpunit": "~7.5",
         "phpstan/phpstan": "~0.12"
     },
