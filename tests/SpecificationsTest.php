@@ -86,7 +86,6 @@ class SpecificationsTest extends TestCase
 
         foreach (['default', null] as $group_name) {
             $result  = $this->instance::getFieldsSpecification($group_name);
-            $sources = $this->instance::getSourcesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
@@ -100,7 +99,6 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $patches = [];
 
             foreach ($raw as $i => $field_data) {
                 $this->assertEquals($path = $field_data['path'], $result[$i]->getPath());
@@ -119,19 +117,6 @@ class SpecificationsTest extends TestCase
                 } else {
                     $this->assertNotEmpty($fillable_by, "Path {$path} has empty 'fillable_by' attribute");
                 }
-
-                $fillable_sources = [];
-
-                foreach ($fillable_by as $source) {
-                    $this->assertTrue($sources->contains('name', $source),
-                        "Path [{$path}] contains invalid source [{$source}]");
-                    $this->assertNotContains($source, $fillable_sources,
-                        "Path [{$path}] contains source duplicate: {$source}");
-                    $fillable_sources[] = $source;
-                }
-
-                $this->assertNotContains($path, $patches, "Fields specification contains field duplicate: {$path}");
-                $patches[] = $path;
             }
         }
     }
@@ -210,15 +195,12 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $types = [];
 
             foreach ($raw as $identifier_data) {
                 $type = $identifier_data['type'];
 
                 $this->assertEquals($identifier_data['description'], $result[$type]->getDescription());
                 $this->assertEquals($identifier_data['type'], $result[$type]->getType());
-                $this->assertNotContains($type, $types, "Identifier type contains duplicate: {$type}");
-                $types[] = $type;
             }
         }
     }
@@ -263,60 +245,6 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testFieldsListAndReportSchemaAreSame(): void
-    {
-        $fields = $this->instance::getFieldsSpecification();
-        $schema = $this->instance::getReportJsonSchema(null, true);
-
-        foreach ($fields as $field) {
-            $schema_path = [];
-
-            foreach ($field->getPathParts() as $path_part) {
-                $schema_path[] = 'properties';
-
-                if (Str::contains($path_part, Field::NESTING_SIGNATURE)) {
-                    $schema_path[] = \str_replace(Field::NESTING_SIGNATURE, '', $path_part);
-                    $schema_path[] = 'items';
-                } else {
-                    $schema_path[] = $path_part;
-                }
-            }
-
-            $schema_field_data = Arr::get($schema, $schema_path = \implode('.', $schema_path));
-
-            $this->assertNotEmpty($schema_field_data);
-            $this->assertNotEmpty($schema_field_data['description'],
-                "Schema field with path {$schema_path}.description should be not empty");
-
-            $this->assertContains(
-                $schema_field_data['description'],
-                $field->getDescription(),
-                "Schema should contains same 'description' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-            );
-
-            foreach ($field->getFillableBy() as $source_name) {
-                $this->assertNotEmpty($schema_field_data['fillable_by'], "'fillable_by' in {$schema_path} is empty");
-
-                $this->assertContains(
-                    $source_name,
-                    $schema_field_data['fillable_by'],
-                    "Schema should contains same 'fillable_by' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-                );
-            }
-
-            foreach ($schema_field_data['fillable_by'] as $source_name) {
-                $this->assertContains(
-                    $source_name,
-                    $field->getFillableBy(),
-                    "Schema should contains existing 'fillable_by' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-                );
-            }
-        }
-    }
-
-    /**
-     * @return void
-     */
     public function testGetFieldsSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
@@ -345,15 +273,12 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $names = [];
 
             foreach ($raw as $source_data) {
                 $name = $source_data['name'];
 
                 $this->assertEquals($source_data['name'], $result[$name]->getName());
                 $this->assertEquals($source_data['description'], $result[$name]->getDescription());
-                $this->assertNotContains($name, $names, "Sources names contains duplicate: {$name}");
-                $names[] = $name;
             }
         }
     }
@@ -389,15 +314,12 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $mark_ids = [];
 
             foreach ($raw as $source_data) {
                 $mark_id = $source_data['id'];
 
                 $this->assertEquals($source_data['id'], $result[$mark_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$mark_id]->getName());
-                $this->assertNotContains($mark_id, $mark_ids, "Mark ID contains duplicate: {$mark_id}");
-                $mark_ids[] = $mark_id;
             }
         }
     }
@@ -422,7 +344,6 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $model_ids = [];
 
             foreach ($raw as $source_data) {
                 $model_id = $source_data['id'];
@@ -430,8 +351,6 @@ class SpecificationsTest extends TestCase
                 $this->assertEquals($source_data['id'], $result[$model_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$model_id]->getName());
                 $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
-                $this->assertNotContains($model_id, $model_ids, "Model ID contains duplicate: {$model_id}");
-                $model_ids[] = $model_id;
             }
         }
     }
@@ -457,14 +376,12 @@ class SpecificationsTest extends TestCase
                     \file_get_contents($this->instance::getRootDirectoryPath($path_file))
                 );
                 $this->assertCount(count($raw), $result);
-                $model_ids = [];
+
                 foreach ($raw as $source_data) {
                     $model_id = $source_data['id'];
                     $this->assertEquals($source_data['id'], $result[$model_id]->getId());
                     $this->assertEquals($source_data['name'], $result[$model_id]->getName());
                     $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
-                    $this->assertNotContains($model_id, $model_ids, "Model ID contains duplicate: {$model_id}");
-                    $model_ids[] = $model_id;
                 }
             }
         }
@@ -553,15 +470,12 @@ class SpecificationsTest extends TestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $types_ids = [];
 
             foreach ($raw as $source_data) {
                 $type_id = $source_data['id'];
 
                 $this->assertEquals($source_data['id'], $result[$type_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$type_id]->getName());
-                $this->assertNotContains($type_id, $types_ids, "Model type ID contains duplicate: {$type_id}");
-                $types_ids[] = $type_id;
             }
         }
     }
