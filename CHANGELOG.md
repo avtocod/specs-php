@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 ### Changed
 
 - Composer `2.x` is supported now
+- Minimal required PHP version now is `7.4`
 
 ## v1.4.0
 
