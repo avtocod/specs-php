@@ -63,7 +63,8 @@ jobs: # Docs: <https://git.io/JvxXE>
         run: composer info | grep -e phpunit -e phpstan -e illuminate -e avtocod
 
       - name: Execute tests
-        run: composer test-cover
+        if: matrix.coverage != 'yes'
+        run: composer test
 
       - name: Execute tests with code coverage
         if: matrix.coverage == 'yes'
