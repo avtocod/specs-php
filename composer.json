@@ -19,7 +19,7 @@
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "avtocod/specs": "^3.0",
+        "avtocod/specs": "~3.101",
         "illuminate/support": "~6.0 || ~7.0 || ~8.0",
         "composer/package-versions-deprecated": "^1.11"
     },
