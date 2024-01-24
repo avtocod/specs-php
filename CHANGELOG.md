@@ -15,8 +15,8 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 - Minimal PHP version now is `8.0.2`
 - Minimal Laravel version now is `9.0`
-- Minimal `phpstan/phpstan` version now is `1.10`
 - Minimal `phpunit/phpunit` version now is `9.6`
+- Minimal `phpstan/phpstan` version now is `1.10`
 - Version of `composer` in docker container updated up to `2.6.6`
 
 ## v1.7.0
