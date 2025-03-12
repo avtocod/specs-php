@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Changed
 
-- Minimal `avtocod/specs` version is `4.0`
+- Minimal `avtocod/specs` version now is `4.0`
 
 ## v1.9.0
 
