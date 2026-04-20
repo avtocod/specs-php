@@ -8,17 +8,16 @@ use JsonException;
 use OutOfBoundsException;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Avtocod\Specifications\Services\Versions;
 
 use function json_decode;
 use function array_merge;
 use function file_get_contents;
 
-/**
- * @group versions
- *
- * @covers \Avtocod\Specifications\Services\Versions
- */
+#[Group('versions')]
+#[CoversClass(Versions::class)]
 class VersionsTest extends TestCase
 {
     /**
@@ -29,8 +28,17 @@ class VersionsTest extends TestCase
         $this->assertNotEmpty($packages = $this->getAllPackagesData());
 
         foreach ($packages as $package) {
+            $reference = null;
+            if (isset($package['source']['reference'])) {
+                $reference = $package['source']['reference'];
+            } elseif (isset($package['dist']['reference'])) {
+                $reference = $package['dist']['reference'];
+            }
+
+            $reference ??= '';
+
             $this->assertSame(
-                $package['version'] . '@' . $package['source']['reference'],
+                $package['version'] . '@' . $reference,
                 Versions::getVersion($package['name'])
             );
         }

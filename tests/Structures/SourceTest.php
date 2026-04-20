@@ -2,11 +2,10 @@
 
 namespace Avtocod\Specifications\Tests\Structures;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Avtocod\Specifications\Structures\Source;
 
-/**
- * @covers \Avtocod\Specifications\Structures\Source
- */
+#[CoversClass(Source::class)]
 class SourceTest extends AbstractStructureTestCase
 {
     /**

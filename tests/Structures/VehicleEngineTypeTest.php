@@ -3,11 +3,10 @@
 namespace Avtocod\Specifications\Tests\Structures;
 
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Avtocod\Specifications\Structures\VehicleEngineType;
 
-/**
- * @covers \Avtocod\Specifications\Structures\VehicleEngineType
- */
+#[CoversClass(VehicleEngineType::class)]
 class VehicleEngineTypeTest extends AbstractStructureTestCase
 {
     /**

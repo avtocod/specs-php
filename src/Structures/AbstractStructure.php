@@ -12,6 +12,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @template AbstractStructureData of array<string, mixed>
  *
+ * @implements Arrayable<string, mixed>
  * @implements \ArrayAccess<string,mixed>
  * @implements \IteratorAggregate<string,mixed>
  */
