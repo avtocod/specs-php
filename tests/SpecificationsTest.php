@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Specifications;
 use Avtocod\Specifications\Structures\Field;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Avtocod\Specifications\Services\Versions;
 use Avtocod\Specifications\Structures\Source;
 use Avtocod\Specifications\Structures\VehicleMark;
@@ -24,9 +25,7 @@ use Avtocod\Specifications\Structures\VehicleTransmissionType;
 use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
 use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
-/**
- * @covers \Avtocod\Specifications\Specifications
- */
+#[CoversClass(Specifications::class)]
 class SpecificationsTest extends TestCase
 {
     /**

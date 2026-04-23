@@ -62,7 +62,7 @@ class Specifications
      *
      * @return string
      */
-    public static function getRootDirectoryPath(string $additional_path = null): string
+    public static function getRootDirectoryPath(?string $additional_path = null): string
     {
         $root = self::getVendorDirectoryPath() . \DIRECTORY_SEPARATOR . self::AVTOCOD_SPECS_PACKAGE_NAME;
 
@@ -78,9 +78,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|Field[]
+     * @return Collection<int, Field>
      */
-    public static function getFieldsSpecification(string $group_name = null): Collection
+    public static function getFieldsSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -104,7 +104,7 @@ class Specifications
      *
      * @return object|mixed[]
      */
-    public static function getFieldsJsonSchema(string $group_name = null, bool $as_array = false)
+    public static function getFieldsJsonSchema(?string $group_name = null, bool $as_array = false)
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -122,7 +122,7 @@ class Specifications
      *
      * @return object|mixed[]
      */
-    public static function getReportExample(string $group_name = null, string $name = 'full', bool $as_array = true)
+    public static function getReportExample(?string $group_name = null, string $name = 'full', bool $as_array = true)
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -139,7 +139,7 @@ class Specifications
      *
      * @return object|mixed[]
      */
-    public static function getReportJsonSchema(string $group_name = null, bool $as_array = false)
+    public static function getReportJsonSchema(?string $group_name = null, bool $as_array = false)
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -155,9 +155,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|IdentifierType[]
+     * @return Collection<string, IdentifierType>
      */
-    public static function getIdentifierTypesSpecification(string $group_name = null): Collection
+    public static function getIdentifierTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -181,7 +181,7 @@ class Specifications
      *
      * @return object|mixed[]
      */
-    public static function getIdentifierTypesJsonSchema(string $group_name = null, bool $as_array = false)
+    public static function getIdentifierTypesJsonSchema(?string $group_name = null, bool $as_array = false)
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -197,9 +197,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|Source[]
+     * @return Collection<string, Source>
      */
-    public static function getSourcesSpecification(string $group_name = null): Collection
+    public static function getSourcesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -223,7 +223,7 @@ class Specifications
      *
      * @return object|mixed[]
      */
-    public static function getSourcesJsonSchema(string $group_name = null, bool $as_array = false)
+    public static function getSourcesJsonSchema(?string $group_name = null, bool $as_array = false)
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -239,9 +239,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleMark[]
+     * @return Collection<string, VehicleMark>
      */
-    public static function getVehicleMarksSpecification(string $group_name = null): Collection
+    public static function getVehicleMarksSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -265,11 +265,11 @@ class Specifications
      *
      * @throws InvalidArgumentException
      *
-     * @return Collection|VehicleModel[]
+     * @return Collection<string, VehicleModel>
      */
     public static function getVehicleModelsSpecification(
-        string $group_name = null,
-        string $vehicle_type = null
+        ?string $group_name = null,
+        ?string $vehicle_type = null
     ): Collection {
         $group_name   = $group_name ?? self::GROUP_NAME_DEFAULT;
         $vehicle_type = $vehicle_type ?? self::VEHICLE_TYPE_DEFAULT;
@@ -294,9 +294,9 @@ class Specifications
      * @throws Exception
      * @throws InvalidArgumentException
      *
-     * @return Collection|VehicleType[]
+     * @return Collection<string, VehicleType>
      */
-    public static function getVehicleTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -319,9 +319,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleBodyType[]
+     * @return Collection<string, VehicleBodyType>
      */
-    public static function getVehicleBodyTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleBodyTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -344,9 +344,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleDrivingWheelsType[]
+     * @return Collection<string, VehicleDrivingWheelsType>
      */
-    public static function getVehicleDrivingWheelsTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleDrivingWheelsTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -369,9 +369,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleEngineType[]
+     * @return Collection<string, VehicleEngineType>
      */
-    public static function getVehicleEngineTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleEngineTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -394,9 +394,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleSteeringWheelType[]
+     * @return Collection<string, VehicleSteeringWheelType>
      */
-    public static function getVehicleSteeringWheelTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleSteeringWheelTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -419,9 +419,9 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleTransmissionType[]
+     * @return Collection<string, VehicleTransmissionType>
      */
-    public static function getVehicleTransmissionTypesSpecification(string $group_name = null): Collection
+    public static function getVehicleTransmissionTypesSpecification(?string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
@@ -447,7 +447,7 @@ class Specifications
      *
      * @return string|null
      */
-    protected static function getVehicleTypeAliasById(string $vehicle_type_id, string $group_name = null)
+    protected static function getVehicleTypeAliasById(string $vehicle_type_id, ?string $group_name = null)
     {
         static $types;
 

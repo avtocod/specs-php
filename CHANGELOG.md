@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## Unreleased
+
+### Changed
+
+- Minimal `php` version is `8.1`
+- Version of `composer` in docker container updated up to `2.9`
+- Minimal `phpunit/phpunit` version now is `10.5`
+- Minimal `phpstan/phpstan` version now is `1.12`
+
+### Fixed
+
+- Error: parameter (string) is implicitly nullable via default value null [issue-25]
+
+[issue-25]:https://github.com/avtocod/specs-php/issues/25
+
 ## v1.12.0
 
 ### Changed

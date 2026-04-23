@@ -6,11 +6,10 @@ namespace Avtocod\Specifications\Tests\Structures;
 
 use LogicException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use Avtocod\Specifications\Structures\AbstractStructure;
 
-/**
- * @coversNothing
- */
+#[CoversNothing]
 abstract class AbstractStructureTestCase extends TestCase
 {
     /**

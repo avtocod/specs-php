@@ -3,10 +3,9 @@
 namespace Avtocod\Specifications\Tests\Structures;
 
 use Avtocod\Specifications\Structures\Field;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Avtocod\Specifications\Structures\Field
- */
+#[CoversClass(Field::class)]
 class FieldTest extends AbstractStructureTestCase
 {
     /**

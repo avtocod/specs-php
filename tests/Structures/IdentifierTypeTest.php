@@ -2,11 +2,10 @@
 
 namespace Avtocod\Specifications\Tests\Structures;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Avtocod\Specifications\Structures\IdentifierType;
 
-/**
- * @covers \Avtocod\Specifications\Structures\IdentifierType
- */
+#[CoversClass(IdentifierType::class)]
 class IdentifierTypeTest extends AbstractStructureTestCase
 {
     /**
